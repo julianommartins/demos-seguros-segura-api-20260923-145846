@@ -1,22 +1,14 @@
 {
-  "name": "template-example",
-  "version": "1.0.1",
-  "description": "Template example",
-  "main": "index.js",
+  "name": "seguradora-api",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nullplatform/template-example.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nullplatform/template-example/issues"
-  },
-  "homepage": "https://github.com/nullplatform/template-example#readme",
   "dependencies": {
-    "fastify": "^4.6.0"
+    "fastify": "^4.28.1",
+    "@fastify/cors": "^9.0.1",
+    "pg": "^8.12.0"
   }
 }
