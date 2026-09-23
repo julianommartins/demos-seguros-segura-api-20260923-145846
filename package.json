@@ -1,0 +1,22 @@
+{
+  "name": "template-example",
+  "version": "1.0.1",
+  "description": "Template example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nullplatform/template-example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nullplatform/template-example/issues"
+  },
+  "homepage": "https://github.com/nullplatform/template-example#readme",
+  "dependencies": {
+    "fastify": "^4.6.0"
+  }
+}

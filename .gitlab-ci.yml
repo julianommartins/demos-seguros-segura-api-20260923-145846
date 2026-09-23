@@ -1,0 +1,60 @@
+default:
+  tags:
+    - ${RUNNER_TAG}
+  image: alpine:latest
+
+.setup-np-cli: &setup-np-cli
+  - apk add curl
+  - curl https://cli.nullplatform.com/install.sh | sh
+  - source /root/.bashrc
+
+build-start:
+  stage: build
+  before_script:
+    - *setup-np-cli
+  script:
+    - np build start
+  except:
+    - tags
+
+build-image:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - /kaniko/executor
+      --context $CI_PROJECT_DIR
+      --dockerfile $CI_PROJECT_DIR/Dockerfile
+      --no-push
+      --destination foo
+      --tar-path image.tar
+  artifacts:
+    paths:
+      - image.tar
+  except:
+    - tags
+
+build-finalize:
+  stage: build
+  needs: 
+    - build-start
+    - build-image
+  before_script:
+    - *setup-np-cli
+    - apk add crane
+  script:
+    - np asset push --type docker-image --source image.tar
+    - np build update --status successful
+  except:
+    - tags
+
+build-failed:
+  stage: .post
+  before_script:
+    - *setup-np-cli
+  script:
+    - np build update --status=failed
+  except:
+    - tags
+  when: on_failure
